@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание вопроса{% endblock %}
+
+{% block body %}
+
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <div class="container">
+        <h1>Создание нового вопроса</h1>
+        {{ include('question/_form.html.twig') }}
+    </div>
+
+{% endblock %}

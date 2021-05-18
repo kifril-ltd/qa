@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+   <div class="container">
+    {% for question in questions %}
+        <div class="card my-2">
+            <h4 class="card-header ">
+                {{ question.title }}
+            </h4>
+            <div class="card-body">
+                <h5 class="card-title">Категория: {{ question.category }}</h5>
+                <div class="card-text"> {{ question.text|striptags|slice(0,200) ~ '...' }}</div>
+                <a href="{{ path('question_show', {'id': question.id}) }}" class="btn btn-primary my-2">Подробнее...</a>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="text-muted">{{ question.publishDate ? question.publishDate|date('d-m-Y H:i') : '' }}</div>
+                <div class="text-muted"> Ответы: {{ question.answers | length }}</div>
+            </div>
+        </div>
+    {% endfor %}
+   </div>
+{% endblock %}

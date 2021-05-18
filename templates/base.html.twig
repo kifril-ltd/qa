@@ -25,18 +25,22 @@
             
            
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
+                <li><a href="{{ path('home') }}" class="nav-link px-2 link-secondary">Главная</a></li>
+                <li><a href="{{ path('about') }}" class="nav-link px-2 link-dark">О нас</a></li>
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('admin') }}" class="nav-link px-2 link-dark">Панель администратора</a></li>
+                {% endif %}
             </ul>
             
             {% if app.user %}
             <div class="mb-3">
+                <a class="btn btn-primary" href="{{ path('question_new') }}">Задать вопрос</a>
                 Привет, {{ app.user.name }} <a href="{{ path('app_logout') }}" class="btn btn-outline-primary mx-2" >Logout</a>
             </div>
             {% else %}
             <div class="col-md-3 text-end">
-                <a class="btn btn-outline-primary me-2" href="/login">Login</a>
-                <a class="btn btn-primary" href="/register">Sign-up</a>
+                <a class="btn btn-outline-primary me-2" href="{{ path('app_login') }}">Login</a>
+                <a class="btn btn-primary" href="{{ path('app_register') }}">Sign-up</a>
             </div>
             {% endif %}
         </header>

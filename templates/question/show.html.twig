@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ question.title }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="card my-2">
+        <div class="card-header">
+            <h4> {{ question.title }} </h4>
+            <h5> {{ question.author }} </h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Категория: {{ question.category }}</h5>
+            <div class="card-text"> {{ question.text|raw }}</div>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <div class="text-muted">{{ question.publishDate ? question.publishDate|date('d-m-Y H:i') : '' }}</div>
+            <div class="text-muted"> Ответы: {{ question.answers | length }}</div>
+        </div>
+    </div>
+    <h2>Ответы</h2>
+    {% for answer in question.answers %}
+        <div class="card my-2">
+            <h4 class="card-header ">
+                {{ answer.author }}
+            </h4>
+            <div class="card-body">
+                <div class="card-text"> {{ answer.text | raw }}</div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="text-muted">{{ answer.publishDate ? answer.publishDate|date('d-m-Y H:i') : '' }}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if app.user %}
+        <h2>Добавить ответ</h2>
+        {{ form(answer_form) }}
+    {% endif %}
+</div>
+
+{% endblock %}
